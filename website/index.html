@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek-Coder-V2 | Breaking the Barrier of Closed-Source Models in Code Intelligence</title>
+    <meta name="description" content="DeepSeek-Coder-V2 is an open-source Mixture-of-Experts code language model achieving performance comparable to GPT-4 Turbo in code-specific tasks.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <svg class="logo-icon" viewBox="0 0 32 32" width="28" height="28" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-grad)"/>
+                    <path d="M8 16l4-6h8l4 6-4 6h-8l-4-6z" stroke="#fff" stroke-width="2" fill="none"/>
+                    <circle cx="16" cy="16" r="3" fill="#fff"/>
+                    <defs><linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#4F46E5"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+                </svg>
+                <span>DeepSeek-Coder-V2</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#performance">Benchmarks</a></li>
+                <li><a href="#models">Models</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#api">API</a></li>
+                <li><a href="https://arxiv.org/pdf/2406.11931" class="nav-btn" target="_blank" rel="noopener">Read Paper</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+            <div class="hero-glow"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge">Open Source &middot; MIT License &middot; Commercial Use</div>
+            <h1 class="hero-title">
+                Breaking the Barrier of<br>
+                <span class="gradient-text">Closed-Source Models</span><br>
+                in Code Intelligence
+            </h1>
+            <p class="hero-subtitle">
+                DeepSeek-Coder-V2 is an open-source Mixture-of-Experts code language model
+                that achieves performance comparable to GPT-4 Turbo in code-specific tasks,
+                supporting 338 programming languages with 128K context length.
+            </p>
+            <div class="hero-actions">
+                <a href="https://huggingface.co/deepseek-ai" class="btn btn-primary" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    Download on HuggingFace
+                </a>
+                <a href="https://chat.deepseek.com/" class="btn btn-secondary" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Try Chat Demo
+                </a>
+                <a href="https://github.com/deepseek-ai/DeepSeek-Coder-V2" class="btn btn-ghost" target="_blank" rel="noopener">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value" data-target="338">0</span>
+                    <span class="stat-label">Languages</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value" data-target="128">0</span><span class="stat-unit">K</span>
+                    <span class="stat-label">Context Length</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value" data-target="236">0</span><span class="stat-unit">B</span>
+                    <span class="stat-label">Parameters</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value" data-target="90">0</span><span class="stat-unit">%+</span>
+                    <span class="stat-label">HumanEval</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Capabilities</span>
+                <h2 class="section-title">World-Class Code Intelligence</h2>
+                <p class="section-desc">Built on the DeepSeek-V2 architecture with 6 trillion additional training tokens,
+                    DeepSeek-Coder-V2 pushes the boundaries of open-source code models.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+                    </div>
+                    <h3>Code Generation</h3>
+                    <p>90.2% on HumanEval, surpassing GPT-4 Turbo and rivaling GPT-4o. Generate production-quality code across hundreds of languages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3>Code Fixing</h3>
+                    <p>73.7% on Aider, outperforming GPT-4o. Identify and repair bugs with state-of-the-art accuracy across complex codebases.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3>338 Languages</h3>
+                    <p>Expanded from 86 to 338 programming languages. From Python and JavaScript to Solidity, CUDA, and domain-specific languages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/><path d="M12 12V3"/><path d="M9.5 15a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/><path d="M3 9V6"/><path d="M5.5 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+                    </div>
+                    <h3>MoE Architecture</h3>
+                    <p>Mixture-of-Experts design with only 21B active parameters out of 236B total, delivering top-tier performance with efficient inference.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h3>128K Context</h3>
+                    <p>Extended context window from 16K to 128K tokens. Perfect NIAH test scores across all context lengths for reliable long-document analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Math Reasoning</h3>
+                    <p>75.7% on MATH and 94.9% on GSM8K, surpassing Claude 3 Opus and rivaling GPT-4o. Strong mathematical reasoning alongside code.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Section -->
+    <section class="section performance" id="performance">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Benchmarks</span>
+                <h2 class="section-title">Performance That Speaks for Itself</h2>
+                <p class="section-desc">Comprehensive evaluation across industry-standard benchmarks shows DeepSeek-Coder-V2
+                    consistently matches or exceeds closed-source alternatives.</p>
+            </div>
+
+            <div class="benchmark-tabs">
+                <button class="tab-btn active" data-tab="codegen">Code Generation</button>
+                <button class="tab-btn" data-tab="codefix">Code Fixing</button>
+                <button class="tab-btn" data-tab="math">Math Reasoning</button>
+            </div>
+
+            <div class="benchmark-content">
+                <!-- Code Generation Tab -->
+                <div class="tab-panel active" id="tab-codegen">
+                    <div class="benchmark-table-wrapper">
+                        <table class="benchmark-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Params</th>
+                                    <th>HumanEval</th>
+                                    <th>MBPP+</th>
+                                    <th>LiveCodeBench</th>
+                                    <th>USACO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row-highlight">
+                                    <td><strong>DeepSeek-Coder-V2</strong></td>
+                                    <td>236B / 21B</td>
+                                    <td class="score high">90.2</td>
+                                    <td class="score best">76.2</td>
+                                    <td class="score high">43.4</td>
+                                    <td class="score high">12.1</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4o</td>
+                                    <td>-</td>
+                                    <td class="score best">91.0</td>
+                                    <td class="score">73.5</td>
+                                    <td class="score">43.4</td>
+                                    <td class="score best">18.8</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4 Turbo (0409)</td>
+                                    <td>-</td>
+                                    <td class="score">88.2</td>
+                                    <td class="score">72.2</td>
+                                    <td class="score best">45.7</td>
+                                    <td class="score">12.3</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude 3 Opus</td>
+                                    <td>-</td>
+                                    <td class="score">84.2</td>
+                                    <td class="score">72.0</td>
+                                    <td class="score">34.6</td>
+                                    <td class="score">7.8</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini 1.5 Pro</td>
+                                    <td>-</td>
+                                    <td class="score">83.5</td>
+                                    <td class="score high">74.6</td>
+                                    <td class="score">34.1</td>
+                                    <td class="score">4.9</td>
+                                </tr>
+                                <tr>
+                                    <td>Llama 3 Instruct</td>
+                                    <td>70B</td>
+                                    <td class="score">81.1</td>
+                                    <td class="score">68.8</td>
+                                    <td class="score">28.7</td>
+                                    <td class="score">3.3</td>
+                                </tr>
+                                <tr>
+                                    <td>CodeStral</td>
+                                    <td>22B</td>
+                                    <td class="score">78.1</td>
+                                    <td class="score">68.2</td>
+                                    <td class="score">31.0</td>
+                                    <td class="score">4.6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Code Fixing Tab -->
+                <div class="tab-panel" id="tab-codefix">
+                    <div class="benchmark-table-wrapper">
+                        <table class="benchmark-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Params</th>
+                                    <th>Defects4J</th>
+                                    <th>SWE-Bench</th>
+                                    <th>Aider</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row-highlight">
+                                    <td><strong>DeepSeek-Coder-V2</strong></td>
+                                    <td>236B / 21B</td>
+                                    <td class="score high">21.0</td>
+                                    <td class="score high">12.7</td>
+                                    <td class="score best">73.7</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4o</td>
+                                    <td>-</td>
+                                    <td class="score best">26.1</td>
+                                    <td class="score best">26.7</td>
+                                    <td class="score high">72.9</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude 3 Opus</td>
+                                    <td>-</td>
+                                    <td class="score">25.5</td>
+                                    <td class="score">11.7</td>
+                                    <td class="score">68.4</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4 Turbo (1106)</td>
+                                    <td>-</td>
+                                    <td class="score">22.8</td>
+                                    <td class="score">22.7</td>
+                                    <td class="score">65.4</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini 1.5 Pro</td>
+                                    <td>-</td>
+                                    <td class="score">18.6</td>
+                                    <td class="score">19.3</td>
+                                    <td class="score">57.1</td>
+                                </tr>
+                                <tr>
+                                    <td>CodeStral</td>
+                                    <td>22B</td>
+                                    <td class="score">17.8</td>
+                                    <td class="score">2.7</td>
+                                    <td class="score">51.1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Math Reasoning Tab -->
+                <div class="tab-panel" id="tab-math">
+                    <div class="benchmark-table-wrapper">
+                        <table class="benchmark-table">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Params</th>
+                                    <th>GSM8K</th>
+                                    <th>MATH</th>
+                                    <th>AIME 2024</th>
+                                    <th>Math Odyssey</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="row-highlight">
+                                    <td><strong>DeepSeek-Coder-V2</strong></td>
+                                    <td>236B / 21B</td>
+                                    <td class="score high">94.9</td>
+                                    <td class="score high">75.7</td>
+                                    <td class="score best">4/30</td>
+                                    <td class="score best">53.7</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4o</td>
+                                    <td>-</td>
+                                    <td class="score best">95.8</td>
+                                    <td class="score best">76.6</td>
+                                    <td class="score">2/30</td>
+                                    <td class="score high">53.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude 3 Opus</td>
+                                    <td>-</td>
+                                    <td class="score">95.0</td>
+                                    <td class="score">60.1</td>
+                                    <td class="score">2/30</td>
+                                    <td class="score">40.6</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4 Turbo (0409)</td>
+                                    <td>-</td>
+                                    <td class="score">93.7</td>
+                                    <td class="score">73.4</td>
+                                    <td class="score high">3/30</td>
+                                    <td class="score">46.8</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini 1.5 Pro</td>
+                                    <td>-</td>
+                                    <td class="score">90.8</td>
+                                    <td class="score">67.7</td>
+                                    <td class="score">2/30</td>
+                                    <td class="score">45.0</td>
+                                </tr>
+                                <tr>
+                                    <td>Llama 3 Instruct</td>
+                                    <td>70B</td>
+                                    <td class="score">93.0</td>
+                                    <td class="score">50.4</td>
+                                    <td class="score">1/30</td>
+                                    <td class="score">27.9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Models Section -->
+    <section class="section models" id="models">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Downloads</span>
+                <h2 class="section-title">Choose Your Model</h2>
+                <p class="section-desc">Two model sizes available, both based on the DeepSeekMoE framework.
+                    Each comes in Base and Instruct variants.</p>
+            </div>
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-badge">Lightweight</div>
+                    <h3 class="model-name">DeepSeek-Coder-V2 Lite</h3>
+                    <div class="model-specs">
+                        <div class="spec">
+                            <span class="spec-value">16B</span>
+                            <span class="spec-label">Total Params</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-value">2.4B</span>
+                            <span class="spec-label">Active Params</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-value">128K</span>
+                            <span class="spec-label">Context</span>
+                        </div>
+                    </div>
+                    <p class="model-desc">Ideal for local development, fine-tuning, and resource-constrained environments. Runs on consumer-grade GPUs.</p>
+                    <div class="model-actions">
+                        <a href="https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Base" class="btn btn-secondary btn-sm" target="_blank" rel="noopener">Base Model</a>
+                        <a href="https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Instruct Model</a>
+                    </div>
+                </div>
+                <div class="model-card featured">
+                    <div class="model-badge">Flagship</div>
+                    <h3 class="model-name">DeepSeek-Coder-V2</h3>
+                    <div class="model-specs">
+                        <div class="spec">
+                            <span class="spec-value">236B</span>
+                            <span class="spec-label">Total Params</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-value">21B</span>
+                            <span class="spec-label">Active Params</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-value">128K</span>
+                            <span class="spec-label">Context</span>
+                        </div>
+                    </div>
+                    <p class="model-desc">Full-scale model for production workloads. Matches GPT-4 Turbo on code tasks. Requires 80GB x 8 GPUs for BF16 inference.</p>
+                    <div class="model-actions">
+                        <a href="https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Base" class="btn btn-secondary btn-sm" target="_blank" rel="noopener">Base Model</a>
+                        <a href="https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Instruct Model</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage / Code Examples Section -->
+    <section class="section usage" id="usage">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Quick Start</span>
+                <h2 class="section-title">Get Started in Minutes</h2>
+                <p class="section-desc">Multiple inference frameworks supported. Choose the one that fits your workflow.</p>
+            </div>
+
+            <div class="code-tabs">
+                <button class="code-tab active" data-codetab="transformers">Transformers</button>
+                <button class="code-tab" data-codetab="sglang">SGLang</button>
+                <button class="code-tab" data-codetab="vllm">vLLM</button>
+                <button class="code-tab" data-codetab="api">OpenAI API</button>
+            </div>
+
+            <div class="code-panels">
+                <div class="code-panel active" id="codetab-transformers">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <button class="copy-btn" data-copy="transformers">Copy</button>
+                        </div>
+                        <pre><code id="code-transformers"><span class="kw">from</span> transformers <span class="kw">import</span> AutoTokenizer, AutoModelForCausalLM
+<span class="kw">import</span> torch
+
+tokenizer = AutoTokenizer.from_pretrained(
+    <span class="str">"deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"</span>,
+    trust_remote_code=<span class="const">True</span>
+)
+model = AutoModelForCausalLM.from_pretrained(
+    <span class="str">"deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"</span>,
+    trust_remote_code=<span class="const">True</span>,
+    torch_dtype=torch.bfloat16
+).cuda()
+
+messages = [
+    {<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Write a quick sort in Python."</span>}
+]
+
+inputs = tokenizer.apply_chat_template(
+    messages, add_generation_prompt=<span class="const">True</span>, return_tensors=<span class="str">"pt"</span>
+).to(model.device)
+
+outputs = model.generate(inputs, max_new_tokens=<span class="num">512</span>, do_sample=<span class="const">False</span>)
+<span class="kw">print</span>(tokenizer.decode(outputs[<span class="num">0</span>][<span class="kw">len</span>(inputs[<span class="num">0</span>]):], skip_special_tokens=<span class="const">True</span>))</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-panel" id="codetab-sglang">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash + Python</span>
+                            <button class="copy-btn" data-copy="sglang">Copy</button>
+                        </div>
+                        <pre><code id="code-sglang"><span class="cmt"># Launch the server (recommended framework)</span>
+python3 -m sglang.launch_server \
+    --model deepseek-ai/DeepSeek-Coder-V2-Instruct \
+    --tp <span class="num">8</span> --trust-remote-code
+
+<span class="cmt"># Query with OpenAI-compatible API</span>
+<span class="kw">import</span> openai
+
+client = openai.Client(
+    base_url=<span class="str">"http://127.0.0.1:30000/v1"</span>,
+    api_key=<span class="str">"EMPTY"</span>
+)
+
+response = client.chat.completions.create(
+    model=<span class="str">"default"</span>,
+    messages=[
+        {<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: <span class="str">"You are a helpful AI assistant"</span>},
+        {<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"List 3 countries and their capitals."</span>},
+    ],
+    temperature=<span class="num">0</span>,
+    max_tokens=<span class="num">64</span>,
+)
+<span class="kw">print</span>(response)</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-panel" id="codetab-vllm">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <button class="copy-btn" data-copy="vllm">Copy</button>
+                        </div>
+                        <pre><code id="code-vllm"><span class="kw">from</span> transformers <span class="kw">import</span> AutoTokenizer
+<span class="kw">from</span> vllm <span class="kw">import</span> LLM, SamplingParams
+
+max_model_len, tp_size = <span class="num">8192</span>, <span class="num">1</span>
+model_name = <span class="str">"deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct"</span>
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+llm = LLM(
+    model=model_name,
+    tensor_parallel_size=tp_size,
+    max_model_len=max_model_len,
+    trust_remote_code=<span class="const">True</span>,
+    enforce_eager=<span class="const">True</span>
+)
+sampling_params = SamplingParams(
+    temperature=<span class="num">0.3</span>,
+    max_tokens=<span class="num">256</span>,
+    stop_token_ids=[tokenizer.eos_token_id]
+)
+
+messages_list = [
+    [{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Who are you?"</span>}],
+    [{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Write a quick sort in Python."</span>}],
+]
+
+prompt_token_ids = [
+    tokenizer.apply_chat_template(m, add_generation_prompt=<span class="const">True</span>)
+    <span class="kw">for</span> m <span class="kw">in</span> messages_list
+]
+
+outputs = llm.generate(prompt_token_ids=prompt_token_ids, sampling_params=sampling_params)
+<span class="kw">print</span>([o.outputs[<span class="num">0</span>].text <span class="kw">for</span> o <span class="kw">in</span> outputs])</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-panel" id="codetab-api">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <button class="copy-btn" data-copy="api">Copy</button>
+                        </div>
+                        <pre><code id="code-api"><span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+
+<span class="cmt"># Use DeepSeek's OpenAI-compatible API</span>
+client = OpenAI(
+    api_key=<span class="str">"your-api-key"</span>,
+    base_url=<span class="str">"https://api.deepseek.com"</span>
+)
+
+response = client.chat.completions.create(
+    model=<span class="str">"deepseek-coder"</span>,
+    messages=[
+        {<span class="str">"role"</span>: <span class="str">"system"</span>, <span class="str">"content"</span>: <span class="str">"You are a helpful coding assistant."</span>},
+        {<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: <span class="str">"Implement a binary search tree in Python."</span>}
+    ],
+    temperature=<span class="num">0</span>,
+    max_tokens=<span class="num">1024</span>,
+    stream=<span class="const">True</span>
+)
+
+<span class="kw">for</span> chunk <span class="kw">in</span> response:
+    <span class="kw">if</span> chunk.choices[<span class="num">0</span>].delta.content:
+        <span class="kw">print</span>(chunk.choices[<span class="num">0</span>].delta.content, end=<span class="str">""</span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section class="section api" id="api">
+        <div class="container">
+            <div class="api-card">
+                <div class="api-content">
+                    <span class="section-tag">Cloud API</span>
+                    <h2>Ready-to-Use API</h2>
+                    <p>Access DeepSeek-Coder-V2 through our OpenAI-compatible API. Pay-as-you-go pricing with no upfront costs.
+                        Drop-in replacement for existing OpenAI integrations.</p>
+                    <ul class="api-features">
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            OpenAI-compatible endpoints
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Streaming support
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            Competitive pricing
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            No infrastructure required
+                        </li>
+                    </ul>
+                    <a href="https://platform.deepseek.com/" class="btn btn-primary" target="_blank" rel="noopener">Get API Access</a>
+                </div>
+                <div class="api-visual">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">API Response</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line"><span class="t-key">"model"</span>: <span class="t-str">"deepseek-coder-v2"</span>,</div>
+                            <div class="terminal-line"><span class="t-key">"choices"</span>: [{</div>
+                            <div class="terminal-line indent"><span class="t-key">"message"</span>: {</div>
+                            <div class="terminal-line indent2"><span class="t-key">"role"</span>: <span class="t-str">"assistant"</span>,</div>
+                            <div class="terminal-line indent2"><span class="t-key">"content"</span>: <span class="t-str">"Here's an optimized<br>&nbsp;&nbsp;binary search tree..."</span></div>
+                            <div class="terminal-line indent">},</div>
+                            <div class="terminal-line indent"><span class="t-key">"finish_reason"</span>: <span class="t-str">"stop"</span></div>
+                            <div class="terminal-line">}],</div>
+                            <div class="terminal-line"><span class="t-key">"usage"</span>: {</div>
+                            <div class="terminal-line indent"><span class="t-key">"prompt_tokens"</span>: <span class="t-num">42</span>,</div>
+                            <div class="terminal-line indent"><span class="t-key">"completion_tokens"</span>: <span class="t-num">384</span></div>
+                            <div class="terminal-line">}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation Section -->
+    <section class="section citation" id="citation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Research</span>
+                <h2 class="section-title">Cite This Work</h2>
+            </div>
+            <div class="citation-block">
+                <div class="code-header">
+                    <span class="code-lang">BibTeX</span>
+                    <button class="copy-btn" data-copy="citation">Copy</button>
+                </div>
+                <pre><code id="code-citation">@article{zhu2024deepseek,
+  title={DeepSeek-Coder-V2: Breaking the Barrier of Closed-Source
+         Models in Code Intelligence},
+  author={Zhu, Qihao and Guo, Daya and Shao, Zhihong and Yang, Dejian
+          and Wang, Peiyi and Xu, Runxin and Wu, Y and Li, Yukun
+          and Gao, Huazuo and Ma, Shirong and others},
+  journal={arXiv preprint arXiv:2406.11931},
+  year={2024}
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <svg class="logo-icon" viewBox="0 0 32 32" width="24" height="24" fill="none">
+                        <rect width="32" height="32" rx="8" fill="url(#logo-grad2)"/>
+                        <path d="M8 16l4-6h8l4 6-4 6h-8l-4-6z" stroke="#fff" stroke-width="2" fill="none"/>
+                        <circle cx="16" cy="16" r="3" fill="#fff"/>
+                        <defs><linearGradient id="logo-grad2" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#4F46E5"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+                    </svg>
+                    <span>DeepSeek-Coder-V2</span>
+                    <p class="footer-tagline">Open-source code intelligence for everyone.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="https://arxiv.org/pdf/2406.11931" target="_blank" rel="noopener">Research Paper</a>
+                    <a href="https://huggingface.co/deepseek-ai" target="_blank" rel="noopener">HuggingFace</a>
+                    <a href="https://github.com/deepseek-ai/DeepSeek-Coder-V2" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://platform.deepseek.com/" target="_blank" rel="noopener">API Platform</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <a href="https://discord.gg/Tc7c45Zzu5" target="_blank" rel="noopener">Discord</a>
+                    <a href="https://twitter.com/deepseek_ai" target="_blank" rel="noopener">Twitter / X</a>
+                    <a href="https://chat.deepseek.com/" target="_blank" rel="noopener">Chat Demo</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="https://github.com/deepseek-ai/DeepSeek-V2/blob/main/LICENSE-CODE" target="_blank" rel="noopener">Code License (MIT)</a>
+                    <a href="https://github.com/deepseek-ai/DeepSeek-V2/blob/main/LICENSE-MODEL" target="_blank" rel="noopener">Model License</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DeepSeek AI. Released under the MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
