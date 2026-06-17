@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, MapPin, Plus, AlertTriangle } from 'lucide-react';
+import { MapPin, Plus, AlertTriangle } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ClassifiedCard from '../components/ClassifiedCard';
