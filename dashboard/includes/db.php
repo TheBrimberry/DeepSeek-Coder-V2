@@ -61,7 +61,6 @@ function initDB($db) {
 }
 
 function seedDemoData($db) {
-    // Create demo user
     $hash = password_hash('demo123', PASSWORD_DEFAULT);
     $db->exec("INSERT INTO users (name, email, password) VALUES ('Demo Trader', 'demo@blodsalgo.com', '$hash')");
     $userId = $db->lastInsertRowID();
@@ -69,35 +68,39 @@ function seedDemoData($db) {
     $symbols = ['EURUSD', 'GBPJPY', 'XAUUSD', 'USDJPY', 'GBPUSD', 'AUDUSD', 'USDCAD', 'EURJPY'];
     $directions = ['BUY', 'SELL'];
 
-    // Generate 342 historical trades over the past 90 days
+    mt_srand(42);
+    $totalTrades = 342;
+    $targetWins = 234; // 68.4% of 342
     $baseTime = strtotime('-90 days');
     $now = time();
-    $balance = 21733.00;
+    $targetBalance = 24580.00;
     $trades = [];
 
-    for ($i = 0; $i < 342; $i++) {
-        $openTime = $baseTime + rand(0, $now - $baseTime - 86400);
-        $closeTime = $openTime + rand(300, 86400 * 3);
-        if ($closeTime > $now) $closeTime = $now - rand(60, 3600);
+    // Pre-decide which trades are wins to hit exactly 68.4%
+    $outcomes = array_merge(array_fill(0, $targetWins, true), array_fill(0, $totalTrades - $targetWins, false));
+    shuffle($outcomes);
 
-        $symbol = $symbols[array_rand($symbols)];
-        $direction = $directions[array_rand($directions)];
-        $lotSize = round(rand(1, 50) * 0.01, 2);
+    for ($i = 0; $i < $totalTrades; $i++) {
+        $openTime = $baseTime + mt_rand(0, $now - $baseTime - 86400);
+        $closeTime = $openTime + mt_rand(300, 86400 * 2);
+        if ($closeTime > $now) $closeTime = $now - mt_rand(60, 3600);
 
-        // 68.4% win rate
-        $isWin = (rand(1, 1000) <= 684);
+        $symbol = $symbols[$i % count($symbols)];
+        $direction = $directions[mt_rand(0, 1)];
+        $lotSize = round(mt_rand(5, 50) * 0.01, 2);
+
+        $isWin = $outcomes[$i];
         if ($isWin) {
-            $profit = round(rand(50, 500) * $lotSize, 2);
+            $profit = round(mt_rand(30, 350) * $lotSize, 2);
         } else {
-            $profit = -round(rand(30, 400) * $lotSize, 2);
+            $profit = -round(mt_rand(20, 280) * $lotSize, 2);
         }
 
-        $openPrice = getBasePrice($symbol) + (rand(-500, 500) * 0.0001);
-        $closePrice = $direction === 'BUY'
-            ? $openPrice + ($profit > 0 ? rand(10, 200) * 0.0001 : -rand(10, 200) * 0.0001)
-            : $openPrice - ($profit > 0 ? rand(10, 200) * 0.0001 : -rand(10, 200) * 0.0001);
+        $openPrice = getBasePrice($symbol) + (mt_rand(-500, 500) * 0.0001);
+        $priceDelta = $profit > 0 ? mt_rand(10, 200) * 0.0001 : -mt_rand(10, 200) * 0.0001;
+        $closePrice = $direction === 'BUY' ? $openPrice + $priceDelta : $openPrice - $priceDelta;
 
-        $magic = rand(1, 5) * 1000;
+        $magic = (($i % 5) + 1) * 1000;
 
         $stmt = $db->prepare("INSERT INTO trades (user_id, symbol, direction, lot_size, open_price, close_price, profit, open_time, close_time, magic_number, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'closed')");
         $stmt->bindValue(1, $userId, SQLITE3_INTEGER);
@@ -115,11 +118,12 @@ function seedDemoData($db) {
         $trades[] = ['time' => $closeTime, 'profit' => $profit];
     }
 
-    // Sort trades by close time for equity curve
     usort($trades, function($a, $b) { return $a['time'] - $b['time']; });
 
-    // Generate daily balance snapshots
-    $runningBalance = $balance - array_sum(array_column($trades, 'profit'));
+    // Scale profits so final balance hits target
+    $totalProfit = array_sum(array_column($trades, 'profit'));
+    $startBalance = $targetBalance - $totalProfit;
+    $runningBalance = $startBalance;
     $startDate = strtotime('-90 days');
 
     for ($day = 0; $day <= 90; $day++) {
@@ -131,7 +135,7 @@ function seedDemoData($db) {
             }
         }
         $runningBalance += $dayProfit;
-        $equity = $runningBalance + rand(-200, 200);
+        $equity = $runningBalance + mt_rand(-150, 150);
 
         $stmt = $db->prepare("INSERT INTO account_snapshots (user_id, balance, equity, snapshot_date) VALUES (?, ?, ?, ?)");
         $stmt->bindValue(1, $userId, SQLITE3_INTEGER);
