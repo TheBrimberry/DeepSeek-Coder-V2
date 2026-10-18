@@ -1,4 +1,4 @@
-// Dashboard JavaScript - Blodsalgo Analytics
+// Dashboard JavaScript - TradePulse Analytics
 (function() {
     'use strict';
 
@@ -185,8 +185,8 @@
 
         // Gradient fill
         const grad = ctx.createLinearGradient(0, pad.top, 0, h - pad.bottom);
-        grad.addColorStop(0, 'rgba(100,255,218,0.15)');
-        grad.addColorStop(1, 'rgba(100,255,218,0)');
+        grad.addColorStop(0, 'rgba(59,130,246,0.15)');
+        grad.addColorStop(1, 'rgba(59,130,246,0)');
 
         ctx.beginPath();
         ctx.moveTo(x(0), y(values[0]));
@@ -207,7 +207,7 @@
             const cpx = (x(i - 1) + x(i)) / 2;
             ctx.bezierCurveTo(cpx, y(values[i - 1]), cpx, y(values[i]), x(i), y(values[i]));
         }
-        ctx.strokeStyle = '#64FFDA';
+        ctx.strokeStyle = '#3B82F6';
         ctx.lineWidth = 2.5;
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
@@ -218,11 +218,11 @@
         const lastY = y(values[values.length - 1]);
         ctx.beginPath();
         ctx.arc(lastX, lastY, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#64FFDA';
+        ctx.fillStyle = '#3B82F6';
         ctx.fill();
         ctx.beginPath();
         ctx.arc(lastX, lastY, 8, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(100,255,218,0.2)';
+        ctx.fillStyle = 'rgba(59,130,246,0.2)';
         ctx.fill();
     }
 

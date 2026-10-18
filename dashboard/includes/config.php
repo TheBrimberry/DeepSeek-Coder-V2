@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define('APP_NAME', 'Blodsalgo Analytics');
+define('APP_NAME', 'TradePulse Analytics');
 define('APP_URL', '/dashboard');
 define('DB_PATH', __DIR__ . '/../data/analytics.db');
 

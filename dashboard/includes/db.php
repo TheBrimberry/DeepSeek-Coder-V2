@@ -62,7 +62,7 @@ function initDB($db) {
 
 function seedDemoData($db) {
     $hash = password_hash('demo123', PASSWORD_DEFAULT);
-    $db->exec("INSERT INTO users (name, email, password) VALUES ('Demo Trader', 'demo@blodsalgo.com', '$hash')");
+    $db->exec("INSERT INTO users (name, email, password) VALUES ('Demo Trader', 'demo@tradepulse.com', '$hash')");
     $userId = $db->lastInsertRowID();
 
     $symbols = ['EURUSD', 'GBPJPY', 'XAUUSD', 'USDJPY', 'GBPUSD', 'AUDUSD', 'USDCAD', 'EURJPY'];

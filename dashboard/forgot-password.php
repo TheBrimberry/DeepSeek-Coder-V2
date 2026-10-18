@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - Blodsalgo Analytics</title>
+    <title>Reset Password - TradePulse Analytics</title>
     <link rel="stylesheet" href="assets/css/auth.css">
 </head>
 <body>
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="auth-container">
         <div class="auth-logo">
             <a href="/">
-                <span class="brand">BLODSALGO</span>
+                <span class="brand">TRADEPULSE</span>
                 <span class="sub">Analytics</span>
             </a>
         </div>

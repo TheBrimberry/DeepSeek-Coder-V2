@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blodsalgo Analytics - Your Trading, Decoded</title>
+    <title>TradePulse Analytics - Your Trading, Decoded</title>
     <meta name="description" content="Real-time trading performance dashboard for MetaTrader 5 Expert Advisors. Track trades, analyze performance, and optimize your trading strategy.">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
@@ -15,9 +15,9 @@
             --bg-secondary: #0A192F;
             --bg-card: #1E293B;
             --bg-card-hover: #263548;
-            --accent: #64FFDA;
-            --accent-dim: rgba(100, 255, 218, 0.1);
-            --accent-mid: rgba(100, 255, 218, 0.3);
+            --accent: #3B82F6;
+            --accent-dim: rgba(59, 130, 246, 0.1);
+            --accent-mid: rgba(59, 130, 246, 0.3);
             --text-primary: #F8FAFC;
             --text-secondary: #94A3B8;
             --text-muted: #64748B;
@@ -79,7 +79,7 @@
         .btn-primary {
             background: var(--accent); color: var(--bg-primary); border: none; cursor: pointer;
         }
-        .btn-primary:hover { background: #4de8c2; opacity: 1; transform: translateY(-1px); }
+        .btn-primary:hover { background: #2563EB; opacity: 1; transform: translateY(-1px); }
         .btn-outline {
             border: 1px solid var(--accent-mid); color: var(--accent); background: transparent;
         }
@@ -102,13 +102,13 @@
         .hero-grid {
             position: absolute; inset: 0;
             background-image:
-                linear-gradient(rgba(100,255,218,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100,255,218,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
             background-size: 60px 60px;
         }
         .hero-aurora {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 30% 50%, rgba(100,255,218,0.08) 0%, transparent 50%),
+            background: radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
                         radial-gradient(ellipse at 70% 50%, rgba(59,130,246,0.06) 0%, transparent 50%);
             animation: glowDrift 25s ease-in-out infinite alternate;
         }
@@ -131,7 +131,7 @@
         }
         .hd-frame {
             background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-            padding: 24px; box-shadow: var(--shadow-card), 0 0 80px rgba(100,255,218,0.05);
+            padding: 24px; box-shadow: var(--shadow-card), 0 0 80px rgba(59,130,246,0.05);
         }
         .hd-live {
             display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.1);
@@ -295,7 +295,7 @@
             border-bottom: 1px solid var(--border);
         }
         .comparison-table th {
-            background: rgba(100,255,218,0.05); font-weight: 700; font-size: 13px;
+            background: rgba(59,130,246,0.05); font-weight: 700; font-size: 13px;
             text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary);
         }
         .comparison-table th:first-child { color: var(--text-primary); }
@@ -383,7 +383,7 @@
     <!-- Navbar -->
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <a href="/" class="nav-logo">
-            <span class="brand">BLODSALGO</span>
+            <span class="brand">TRADEPULSE</span>
             <span class="sub">Analytics</span>
         </a>
         <ul class="nav-links" id="navLinks">
@@ -412,7 +412,7 @@
 
         <div class="hero-content">
             <h1>Your trading, decoded.</h1>
-            <p>Automatic trade tracking from MetaTrader 5. Real-time sync, advanced analytics, zero manual input. Built exclusively for Blodsalgo EA users.</p>
+            <p>Automatic trade tracking from MetaTrader 5. Real-time sync, advanced analytics, zero manual input. Built exclusively for TradePulse EA users.</p>
             <div class="hero-buttons">
                 <a href="/dashboard/register.php" class="nav-cta btn-primary btn-lg">Create Free Account</a>
                 <a href="/dashboard/login.php" class="nav-cta btn-outline btn-lg">Sign In</a>
@@ -460,8 +460,8 @@
                             <svg viewBox="0 0 500 120" preserveAspectRatio="none" id="heroChart">
                                 <defs>
                                     <linearGradient id="equityGrad" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stop-color="#64FFDA" stop-opacity="0.4"/>
-                                        <stop offset="100%" stop-color="#64FFDA" stop-opacity="0"/>
+                                        <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.4"/>
+                                        <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
                                     </linearGradient>
                                 </defs>
                                 <path class="equity-area" d="M0,100 L17,92 L33,88 L50,80 L67,85 L83,70 L100,65 L117,72 L133,55 L150,50 L167,58 L183,45 L200,40 L217,48 L233,35 L250,42 L267,30 L283,35 L300,25 L317,32 L333,22 L350,28 L367,18 L383,24 L400,15 L417,20 L433,12 L450,18 L467,10 L483,15 L500,8 L500,120 L0,120 Z"/>
@@ -594,7 +594,7 @@
                 <div class="step-num">1</div>
                 <div>
                     <h3>Download the EA</h3>
-                    <p>Get the Blodsalgo EA from the MQL5 Marketplace. It's free for all analytics users.</p>
+                    <p>Get the TradePulse EA from the MQL5 Marketplace. It's free for all analytics users.</p>
                 </div>
             </div>
             <div class="step fade-in">
@@ -667,7 +667,7 @@
                 </div>
                 <div>
                     <h3>Free for EA Users</h3>
-                    <p>No hidden fees, no premium tiers. The full analytics platform is free for all Blodsalgo EA users.</p>
+                    <p>No hidden fees, no premium tiers. The full analytics platform is free for all TradePulse EA users.</p>
                 </div>
             </div>
         </div>
@@ -676,7 +676,7 @@
     <!-- Comparison -->
     <section class="section perf-section" id="compare">
         <div class="section-label fade-in">Comparison</div>
-        <h2 class="section-title fade-in">Why Blodsalgo Analytics?</h2>
+        <h2 class="section-title fade-in">Why TradePulse Analytics?</h2>
         <p class="section-desc fade-in">See how we compare to manual tracking and other platforms.</p>
         <div class="comparison-wrap fade-in">
             <table class="comparison-table">
@@ -685,7 +685,7 @@
                         <th>Feature</th>
                         <th>Spreadsheets</th>
                         <th>Other Platforms</th>
-                        <th class="highlight">Blodsalgo</th>
+                        <th class="highlight">TradePulse</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -739,7 +739,7 @@
     <!-- CTA -->
     <section class="cta-section perf-section">
         <h2 class="fade-in">Start tracking your trades today</h2>
-        <p class="fade-in">Join traders worldwide who trust Blodsalgo Analytics to decode their performance.</p>
+        <p class="fade-in">Join traders worldwide who trust TradePulse Analytics to decode their performance.</p>
         <div class="hero-buttons fade-in">
             <a href="/dashboard/register.php" class="nav-cta btn-primary btn-lg">Create Free Account</a>
             <a href="/dashboard/login.php" class="nav-cta btn-outline btn-lg">Sign In</a>
@@ -763,10 +763,10 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-brand">
-            <span class="brand">BLODSALGO</span>
+            <span class="brand">TRADEPULSE</span>
             <span class="sub">Analytics</span>
         </div>
-        <p class="footer-copy">&copy; 2024 Blodsalgo. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2024 TradePulse. All rights reserved.</p>
         <ul class="footer-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#security">Privacy</a></li>

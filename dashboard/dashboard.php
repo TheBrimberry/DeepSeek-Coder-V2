@@ -8,7 +8,7 @@ $user = getCurrentUser();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Blodsalgo Analytics</title>
+    <title>Dashboard - TradePulse Analytics</title>
     <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 <body>
@@ -16,7 +16,7 @@ $user = getCurrentUser();
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href="/" class="sidebar-logo">
-                <span class="brand">BLODSALGO</span>
+                <span class="brand">TRADEPULSE</span>
                 <span class="sub">Analytics</span>
             </a>
         </div>
@@ -59,7 +59,7 @@ $user = getCurrentUser();
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
         <div class="mobile-logo">
-            <span class="brand">BLODSALGO</span>
+            <span class="brand">TRADEPULSE</span>
             <span class="sub">Analytics</span>
         </div>
         <div></div>
